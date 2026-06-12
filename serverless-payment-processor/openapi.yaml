@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Serverless Payment Processor API
+  description: API for processing fintech payment notifications using AWS API Gateway and Lambda.
+  version: 1.0.0
+servers:
+  - url: https://uco7yg085e.execute-api.us-east-1.amazonaws.com/prod/payments
+    description: Production API Gateway URL
+
+paths:
+  /payment:
+    post:
+      summary: Submit a new payment transaction
+      description: Triggers the AWS Lambda function to validate and process a payment.
+      operationId: processPayment
+      requestBody:
+        description: JSON payload containing transaction details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+            example:
+              amount: 25000
+              sender: "Yetunde Bakare"
+              recipient: "Kelechi Okafor"
+      responses:
+        '200':
+          description: Payment successfully processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSuccessResponse'
+              example:
+                status: "Payment Processed"
+                sender: "Yetunde Bakare"
+                recipient: "Kelechi Okafor"
+                amount: "NGN 25,000.00"
+                timestamp: "2026-06-12T21:43:54.379989"
+                reference: "TXN20260612214354"
+        '400':
+          description: Bad Request - Invalid or negative payment amount.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid amount"
+
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      required:
+        - amount
+        - sender
+        - recipient
+      properties:
+        amount:
+          type: number
+          description: The monetary value of the transaction.
+        sender:
+          type: string
+          description: The name or ID of the person sending the money.
+        recipient:
+          type: string
+          description: The name or ID of the entity receiving the money.
+
+    PaymentSuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        sender:
+          type: string
+        recipient:
+          type: string
+        amount:
+          type: string
+          description: Formatted currency string.
+        timestamp:
+          type: string
+          format: date-time
+        reference:
+          type: string
+          description: Auto-generated unique transaction ID.
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
