@@ -10,5 +10,6 @@ This tree provides a structured path for identifying the ideal AWS database serv
 ### When to Use vs. Avoid Amazon DynamoDB
 Amazon DynamoDB is ideal for high-throughput, unstructured or semi-structured data workloads requiring predictable, single-digit millisecond latency at any scale, such as user session management or real-time shopping carts. DynamoDB should be avoided for complex transactional workloads that depend heavily on relational data joins, complex multi-table queries, or frequently shifting access patterns that make primary key optimization impractical.
 
-
+## Created my first API Gateway with a Payment Processing Lambda function. Here is my API URL endpoint
+https://uco7yg085e.execute-api.us-east-1.amazonaws.com/prod/payments
 
