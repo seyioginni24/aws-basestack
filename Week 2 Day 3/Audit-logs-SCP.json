@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyDisableCloudTrail",
+            "Effect": "Deny",
+            "Action": [
+                "cloudtrail:StopLogging",
+                "cloudtrail:DeleteTrail",
+                "cloudtrail:UpdateTrail"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+
+##What does this JSON policy do?
+Prevents anyone — even account administrators with full privileges — from disabling, modifying, or deleting audit logs. This is critical for compliance in highly regulated environments (like a fintech company), ensuring that a malicious actor cannot turn off the cloudtrail before attempting a breach, keeping the forensic record immutable.
+
+

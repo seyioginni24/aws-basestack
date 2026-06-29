@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyLeaveOrganization",
+            "Effect": "Deny",
+            "Action": [
+                "organizations:LeaveOrganization"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+
+##What does this JSON policy do?
+This JSON policy prevents any user from leaving the AWS Organization. By denying the "organizations:LeaveOrganization" action, it ensures that all accounts remain part of the organization, which is important for maintaining centralized management, billing, and security controls. This is particularly useful in environments where strict governance and compliance are required, as it prevents users from bypassing organizational policies or controls by leaving the organization.
